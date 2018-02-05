@@ -1,92 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>
-   Nomadic
-    </title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" rel="stylesheet"/>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="jumbotron">
-            <h2>
-              Nomadic's home page
-            </h2>
-            <p>
-              Some of the stuff from me
-            </p>
-            <p>
-              <a class="btn btn-primary btn-large" href="https://github.com/n0madic">
-                GitHub Profile
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <h1>
-        My main projects:
-      </h1>
-      <div class="row">
-        <div class="col-md-3">
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    Nomadic
+  </title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $.ajax({
+        type: "GET",
+        url: "https://api.github.com/users/n0madic/repos",
+        dataType: "json",
+        success: function (result) {
+          count = 0;
+          for (var i in result) {
+            if (!result[i].fork && !result[i].has_pages) {
+              $('#projects').append(
+                "<tr><td><a href='" + result[i].html_url + "' target='_blank'>" +
+                result[i].name + "</a></td><td>" + result[i].description + "</td>"
+              );
+              count++;
+            }
+          }
+          $("#myprojects").text("My GitHub projects:");
+          $("#projects").append("<tr><td><b>Total: " + count + "</b></td></tr>");
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="jumbotron">
           <h2>
-            twitter2rss
+            Nomadic's home page
           </h2>
           <p>
-            Twitter to RSS proxy
+            Some of the stuff from me
           </p>
           <p>
-            <a class="btn" href="https://github.com/n0madic/twitter2rss">
-              View details »
-            </a>
-          </p>
-        </div>
-        <div class="col-md-3">
-          <h2>
-            fullrss
-          </h2>
-          <p>
-            Full text RSS feeds proxy
-          </p>
-          <p>
-            <a class="btn" href="https://github.com/n0madic/fullrss-proxy">
-              View details »
-            </a>
-          </p>
-        </div>
-        <div class="col-md-3">
-          <h2>
-            site2rss
-          </h2>
-          <p>
-            <span>
-              Site to RSS converter
-            </span>
-          </p>
-          <p>
-            <a class="btn" href="https://github.com/n0madic/site2rss">
-              View details »
-            </a>
-          </p>
-        </div>
-        <div class="col-md-3">
-          <h2>
-            vk2twitter
-          </h2>
-          <p>
-            <span>
-              Vkontakte public post to Twitter status
-            </span>
-          </p>
-          <p>
-            <a class="btn" href="https://github.com/n0madic/vk2twitter">
-              View details »
+            <a class="btn btn-primary btn-large" href="https://github.com/n0madic">
+              GitHub Profile
             </a>
           </p>
         </div>
       </div>
     </div>
-  </body>
+    <h3 id="myprojects">
+      My GitHub projects (loading...)
+    </h3>
+    <table class="table" id="projects"></table>
+    <tbody>
+    </tbody>
+    </table>
+  </div>
+  </div>
+</body>
+
 </html>
