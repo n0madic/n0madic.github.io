@@ -13,7 +13,7 @@
     $(function () {
       $.ajax({
         type: "GET",
-        url: "https://api.github.com/users/n0madic/repos",
+        url: "https://api.github.com/users/n0madic/repos?per_page=100",
         dataType: "json",
         success: function (result) {
           count = 0;
