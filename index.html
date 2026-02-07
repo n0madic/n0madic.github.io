@@ -18,7 +18,7 @@
         success: function (result) {
           count = 0;
           for (var i in result) {
-            if (!result[i].fork && !result[i].has_pages) {
+            if (!result[i].fork && !result[i].has_pages && !result[i].archived) {
               $('#projects').append(
                 "<tr><td><a href='" + result[i].html_url + "' target='_blank'>" +
                 result[i].name + "</a></td><td>" + result[i].description + "</td>"
